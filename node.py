@@ -291,14 +291,16 @@ def __main():
     print("Launching node.")
     log.info("Launching node.")
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--nn", type=int,\
-        help="Node instance number.")
+        help="Node instance number.",\
+        default=0)
     parser.add_argument("--addpeer",\
-        help="Add a node to peer list.", action="append")
+        help="Add a node to peer list.", action="append",\
+        default=[])
     parser.add_argument("--bind",\
-        help="Specify bind address (host:port). The default is \":4250\";"\
-            " which will listen on all interfaces on port 4250.")
+        help="Specify bind address (host:port).",\
+        default=":4250")
     parser.add_argument("--cleartexttransport", action="store_true",\
         help="Clear text transport and no authentication.")
     parser.add_argument("--dbpoolsize", type=int,\
@@ -326,20 +328,25 @@ def __main():
             " MBs (default is one gigabyte, as in 1024^3 bytes). Morphis does"\
             " not deal in MiecBytes (1 MiecB = 1000^2 bytes), but in"\
             " MegaBytes (1 MB = 1024^2 bytes). Morphis does not recognize the"\
-            " attempted redefinition of an existing unit by the IEC.")
+            " attempted redefinition of an existing unit by the IEC.",\
+        default="1024")
     parser.add_argument("--dumptasksonexit", action="store_true",\
         help="Dump async task list on exit.")
     parser.add_argument("--enableeval", action="store_true",\
         help="Enable eval and ! commands in the shell (BAD ON SHARED HOST).")
     parser.add_argument("--instanceoffset", type=int,\
-        help="Debug option to increment node instance and bind port.")
+        help="Debug option to increment node instance and bind port.",\
+        default=0)
     parser.add_argument("-l", dest="logconf",\
         help="Specify alternate logging.ini [IF SPECIFIED, THIS MUST BE THE"\
-            " FIRST PARAMETER!].")
+            " FIRST PARAMETER!].",
+        default="logging-prod.ini")
     parser.add_argument("--maxconn", type=int,\
-        help="Specify the maximum connections to seek.")
+        help="Specify the maximum connections to seek.",\
+        default=1024)
     parser.add_argument("--nodecount", type=int,\
-        help="Specify amount of nodes to start.")
+        help="Specify amount of nodes to start.",\
+        default=1)
     parser.add_argument("--offline", action="store_true",\
         help="Enable offline mode. Only Maalstroom will be enabled.")
     parser.add_argument("--parallellaunch", action="store_true",\
@@ -364,13 +371,7 @@ def __main():
 
     addpeer = args.addpeer
     instance = args.nn
-    if instance == None:
-        instance = 0
     bindaddr = args.bind
-    if bindaddr:
-        bindaddr.split(':') # Just to preemptively test.
-    else:
-        bindaddr = ":4250"
     if args.cleartexttransport:
         log.info("Enabling cleartext transport.")
         mn1.enable_cleartext_transport()

@@ -854,6 +854,7 @@ def serve_get(dispatcher, rpath):
         content = content.replace(\
             "${TARGET_KEY}",\
             mbase32.encode(dmail_address.keys[0].target_key))
+        print(base58.encode(dmail_address.keys[0].x))
 
         dispatcher.send_content(content)
 ##### OLD ACTIONS:
