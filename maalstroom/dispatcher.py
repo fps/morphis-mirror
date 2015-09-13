@@ -278,7 +278,7 @@ class MaalstroomDispatcher(object):
 
         if significant_bits:
             # Resolve key via send_find_key.
-            if significant_bits < 32:
+            if significant_bits < 1:
                 log.warning("Request supplied key with too few bits [{}]."\
                     .format(significant_bits))
 
