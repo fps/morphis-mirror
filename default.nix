@@ -30,5 +30,11 @@ pythonPackages.buildPythonPackage rec {
     maintainers = [ "Florian Paul Schmidt <mista.tapas@gmx.net>" ];
     platforms = lib.platforms.all;
   };
+
+  /* all-packages.nix entry
+  morphis = callPackage ../applications/networking/morphis {
+    pythonPackages = python34Packages;
+  };
+  */
 }
 
