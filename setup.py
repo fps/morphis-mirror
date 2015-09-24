@@ -47,4 +47,4 @@ modules = [\
 #    scripts = [ "node.py" ]
 #)
 
-setup(name='morphis', py_modules = modules, scripts = [ "morphis_node.sh" ], packages = [ "maalstroom" ])
+setup(name='morphis', py_modules = modules, entry_points={'console_scripts': [ 'morphis_node=node:main'] }, packages = [ "maalstroom" ])
