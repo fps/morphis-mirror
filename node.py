@@ -393,7 +393,7 @@ def __main():
 
     thisdir, thisfile = os.path.split(__file__)
 
-    morphis_version = open(thisdir + "/../../../../share/morphis/version/VERSION").read().strip()
+    morphis_version = open(thisdir + "/../../../share/morphis/version/VERSION").read().strip()
 
     while True:
         @asyncio.coroutine

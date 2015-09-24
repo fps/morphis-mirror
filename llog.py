@@ -10,7 +10,7 @@ logging_initialized = False;
 
 def init():
     global logging_initialized
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s [%(module)s:%(lineno)d] %(message)s")
+    logging.basicConfig(level=logging.WARNING, format="%(asctime)s %(levelname)s [%(module)s:%(lineno)d] %(message)s")
 
     if (logging_initialized):
         return
