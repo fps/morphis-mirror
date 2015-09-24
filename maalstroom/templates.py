@@ -334,7 +334,7 @@ initialized_template = False
 if not initialized_template:
     #fh = open("favicon.ico", "rb")
     this_dir, this_filename = os.path.split(__file__)
-    fh = open(this_dir + "/../../../../bitmaps/favicon.ico", "rb")
+    fh = open(this_dir + "/../../../../share/morphis/bitmaps/favicon.ico", "rb")
     if fh:
         favicon_content[0] = fh.read()
 
@@ -354,7 +354,7 @@ if not initialized_template:
 
 def load(filepath, dynamic=False):
     this_dir, this_filename = os.path.split(__file__)
-    fh = open(this_dir + "/../../../../maalstroom/templates/" + filepath, "rb")
+    fh = open(this_dir + "/../../../../share/morphis/maalstroom/templates/" + filepath, "rb")
     template = fh.read()
     if dynamic:
         template = template.decode()
@@ -369,13 +369,14 @@ _resource_type_mapping = {\
 
 def load_resource(filepath):
     this_dir, this_filename = os.path.split(__file__)
-    fh = open(this_dir + "/../../../../maalstroom/resources/" + filepath, "rb")
+    fh = open(this_dir + "/../../../../share/morphis/maalstroom/resources/" + filepath, "rb")
     ext = filepath[filepath.rindex('.')+1:]
     return [fh.read(), None, _resource_type_mapping[ext]]
 
 imgs = {}
 
 if not initialized_template:
+    this_dir, this_filename = os.path.split(__file__)
     # V2 UI:
     main_css = dmail_css_content 
 
@@ -400,7 +401,7 @@ if not initialized_template:
     dmail_create_address = load("dmail/create_address.html", True)
     dmail_address_config = load("dmail/address_config.html", True)
 
-    for entry_name in os.listdir("maalstroom/resources/images/dmail"):
+    for entry_name in os.listdir(this_dir + "/../../../../share/morphis/maalstroom/resources/images/dmail"):
         if log.isEnabledFor(logging.DEBUG):
             log.debug("Loading resource [{}].".format(entry_name))
 

@@ -61,6 +61,16 @@ setup( name='morphis',
         ), 
 
         (
+            os.path.join('share', 'morphis', 'version'), 
+            [ 'VERSION' ] 
+        ), 
+
+        (
+            os.path.join('share', 'morphis', 'maalstroom' ,'resources'), 
+            [ os.path.join('maalstroom', 'resources', 'style.css') ]
+        ), 
+
+        (
             os.path.join('share', 'morphis', 'maalstroom' ,'resources', 'images', 'dmail'), 
             glob.glob(os.path.join('maalstroom', 'resources', 'images', 'dmail', '*')) 
         ), 

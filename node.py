@@ -391,7 +391,9 @@ def __main():
     parallel_launch = args.parallellaunch
     reinitds = args.reinitds
 
-    morphis_version = open("VERSION").read().strip()
+    thisdir, thisfile = os.path.split(__file__)
+
+    morphis_version = open(thisdir + "/../../../../share/morphis/version/VERSION").read().strip()
 
     while True:
         @asyncio.coroutine
