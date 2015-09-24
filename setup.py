@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 import os
 import glob
@@ -44,39 +44,14 @@ modules = [
 
 setup(
     name='morphis', 
+    version='0.8',
     py_modules = modules, 
-    entry_points={'console_scripts': [ 'morphis_node=node:main'] }, 
-    packages = [ "maalstroom" ],
-    data_files = [ 
-        (
-            'bitmaps', 
-            [ 'bitmaps/favicon.ico' ] 
-        ), 
+    entry_points={'console_scripts': [ 'morphis_node=node:main' ] }, 
+    
+    packages = [ 'morphis', 'morphis/maalstroom' ],
 
-        (
-            'version', 
-            [ 'VERSION' ] 
-        ), 
-
-        (
-            os.path.join('maalstroom' ,'resources'), 
-            [ os.path.join('maalstroom', 'resources', 'style.css') ]
-        ), 
-
-        (
-            os.path.join('maalstroom' ,'resources', 'images', 'dmail'), 
-            glob.glob(os.path.join('maalstroom', 'resources', 'images', 'dmail', '*')) 
-        ), 
-
-        (
-            os.path.join('maalstroom' ,'templates' ,'main'), 
-            glob.glob(os.path.join('maalstroom', 'templates', 'main', '*')) 
-        ), 
-
-        (
-            os.path.join('maalstroom' ,'templates' ,'dmail'),
-            glob.glob(os.path.join('maalstroom', 'templates', 'dmail', '*')) 
-        ) 
-    ] 
+    package_data = {
+        'morphis': [ '*.ico' ]
+    }    
 )
 

@@ -334,7 +334,7 @@ initialized_template = False
 if not initialized_template:
     #fh = open("favicon.ico", "rb")
     this_dir, this_filename = os.path.split(__file__)
-    fh = open(resource_filename(Requirement.parse("morphis"), "bitmaps/favicon.ico"), "rb")
+    fh = open(resource_filename(Requirement.parse("morphis"), "favicon.ico"), "rb")
     if fh:
         favicon_content[0] = fh.read()
 
