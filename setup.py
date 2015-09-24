@@ -50,38 +50,39 @@ modules = [
 #    scripts = [ "node.py" ]
 #)
 
-setup( name='morphis', 
+setup(
+    name='morphis', 
     py_modules = modules, 
     entry_points={'console_scripts': [ 'morphis_node=node:main'] }, 
     packages = [ "maalstroom" ],
     data_files = [ 
         (
-            os.path.join('share', 'morphis', 'bitmaps'), 
+            'bitmaps', 
             [ 'bitmaps/favicon.ico' ] 
         ), 
 
         (
-            os.path.join('share', 'morphis', 'version'), 
+            'version', 
             [ 'VERSION' ] 
         ), 
 
         (
-            os.path.join('share', 'morphis', 'maalstroom' ,'resources'), 
+            os.path.join('maalstroom' ,'resources'), 
             [ os.path.join('maalstroom', 'resources', 'style.css') ]
         ), 
 
         (
-            os.path.join('share', 'morphis', 'maalstroom' ,'resources', 'images', 'dmail'), 
+            os.path.join('maalstroom' ,'resources', 'images', 'dmail'), 
             glob.glob(os.path.join('maalstroom', 'resources', 'images', 'dmail', '*')) 
         ), 
 
         (
-            os.path.join('share', 'morphis', 'maalstroom' ,'templates' ,'main'), 
+            os.path.join('maalstroom' ,'templates' ,'main'), 
             glob.glob(os.path.join('maalstroom', 'templates', 'main', '*')) 
         ), 
 
         (
-            os.path.join('share', 'morphis', 'maalstroom' ,'templates' ,'dmail'),
+            os.path.join('maalstroom' ,'templates' ,'dmail'),
             glob.glob(os.path.join('maalstroom', 'templates', 'dmail', '*')) 
         ) 
     ] 

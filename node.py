@@ -18,6 +18,8 @@ import chord
 import peer
 import db
 
+from pkg_resources import Requirement, resource_string, resource_filename
+
 # NodeState keys.
 NSK_DATASTORE_SIZE = "datastore_size"
 
@@ -393,7 +395,7 @@ def __main():
 
     thisdir, thisfile = os.path.split(__file__)
 
-    morphis_version = open(thisdir + "/../../../share/morphis/version/VERSION").read().strip()
+    morphis_version = resource_string(Requirement.parse("morphis"), "version/VERSION").strip()
 
     while True:
         @asyncio.coroutine
