@@ -7,6 +7,8 @@ import logging
 import os
 import threading
 
+import pkg_resources
+
 log = logging.getLogger(__name__)
 
 ## Templates:
@@ -330,7 +332,9 @@ dmail_compose_dmail_form_end =\
 
 initialized_template = False
 if not initialized_template:
-    fh = open("favicon.ico", "rb")
+    #fh = open("favicon.ico", "rb")
+    this_dir, this_filename = os.path.split(__file__)
+    fh = open(this_dir + "/../../../../bitmaps/favicon.ico", "rb")
     if fh:
         favicon_content[0] = fh.read()
 
@@ -349,7 +353,8 @@ if not initialized_template:
     dmail_tag_view_content[0] = dmail_page_wrapper
 
 def load(filepath, dynamic=False):
-    fh = open("maalstroom/templates/" + filepath, "rb")
+    this_dir, this_filename = os.path.split(__file__)
+    fh = open(this_dir + "/../../../../maalstroom/templates/" + filepath, "rb")
     template = fh.read()
     if dynamic:
         template = template.decode()
@@ -363,7 +368,8 @@ _resource_type_mapping = {\
     "gif": "image/gif"}
 
 def load_resource(filepath):
-    fh = open("maalstroom/resources/" + filepath, "rb")
+    this_dir, this_filename = os.path.split(__file__)
+    fh = open(this_dir + "/../../../../maalstroom/resources/" + filepath, "rb")
     ext = filepath[filepath.rindex('.')+1:]
     return [fh.read(), None, _resource_type_mapping[ext]]
 
