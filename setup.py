@@ -51,7 +51,7 @@ setup(
     packages = [ 'morphis', 'morphis/maalstroom' ],
 
     package_data = {
-        'morphis': [ '*.ico' ]
+        'morphis': [ '*.ico' , 'VERSION' ]
     }    
 )
 
