@@ -403,7 +403,7 @@ def __main():
 
     thisdir, thisfile = os.path.split(__file__)
 
-    morphis_version = resource_string(Requirement.parse("morphis"), "VERSION").strip()
+    morphis_version = resource_string(Requirement.parse("morphis"), "morphis/VERSION").strip()
 
     while True:
         @asyncio.coroutine

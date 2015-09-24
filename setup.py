@@ -45,8 +45,7 @@ modules = [
 setup(
     name='morphis', 
     version='0.8',
-    py_modules = modules, 
-    entry_points={'console_scripts': [ 'morphis_node=node:main' ] }, 
+    entry_points={'console_scripts': [ 'morphis_node=morphis.node:main' ] }, 
     
     packages = [ 'morphis', 'morphis/maalstroom' ],
 
