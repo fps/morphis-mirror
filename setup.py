@@ -2,7 +2,6 @@
 # License: GPL v2.
 
 from setuptools import setup
-from Cython.Build import cythonize
 
 import os
 import glob
@@ -42,13 +41,6 @@ modules = [
     "sshexception",
     "sshtype"
 ]
-
-#setup(
-#    name = 'morphis',
-#    ext_modules = cythonize(\
-#        [x + ".py" for x in modules]),
-#    scripts = [ "node.py" ]
-#)
 
 setup(
     name='morphis', 
