@@ -54,7 +54,7 @@ class Node():
 
         self.data_block_path = os.path.join(data_dir, "store-{}")
         self.data_block_file_path =\
-            os.join(self.data_block_path, "{}.blk")
+            os.path.join(self.data_block_path, "{}.blk")
 
         self.datastore_max_size = 0 # In bytes.
         self.datastore_size = 0 # In bytes.
@@ -408,7 +408,7 @@ def __main():
     while True:
         @asyncio.coroutine
         def _start_node(instance, bindaddr):
-            node = Node(loop, instance, dburl)
+            node = Node(loop, data_dir, instance, dburl)
             node.morphis_version = morphis_version
 
             if args.enableeval:
