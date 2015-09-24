@@ -50,7 +50,7 @@ setup(
     packages = [ 'morphis', 'morphis/maalstroom' ],
 
     package_data = {
-        'morphis': [ '*.ico' , 'VERSION' ]
+        'morphis': [ '*.ico' , 'VERSION', 'maalstroom/templates/main/*', 'maalstroom/templates/dmail/*' ]
     }    
 )
 
