@@ -38,7 +38,7 @@ dumptasksonexit = False
 maalstroom_enabled = False
 
 class Node():
-    def __init__(self, loop, instance_id=None, dburl=None):
+    def __init__(self, loop, data_dir, instance_id=None, dburl=None):
         self.chord_engine = None
         self.loop = loop
 
@@ -50,9 +50,11 @@ class Node():
 
         self.node_key = None
 
-        self.data_block_path = "data/store-{}"
+        self.data_dir = data_dir
+
+        self.data_block_path = os.path.join(data_dir, "store-{}")
         self.data_block_file_path =\
-            self.data_block_path + "/{}.blk"
+            os.join(self.data_block_path, "{}.blk")
 
         self.datastore_max_size = 0 # In bytes.
         self.datastore_size = 0 # In bytes.
@@ -62,7 +64,7 @@ class Node():
         else:
             self.db = db.Db(\
                 loop,\
-                "sqlite:///data/morphis{}.sqlite".format(self.instance_postfix))
+                "sqlite:///" + data_dir + "/morphis{}.sqlite".format(self.instance_postfix))
         self._db_initialized = False
 
         self.bind_address = None
@@ -93,9 +95,9 @@ class Node():
             log.debug("The database is already initialized.")
             return
 
-        if not os.path.exists("data"):
+        if not os.path.exists(self.data_dir):
             log.info("The 'data' directory was missing; creating.")
-            os.makedirs("data")
+            os.makedirs(self.data_dir)
 
         self.db.init_engine()
 
@@ -229,7 +231,7 @@ class Node():
         self.node_key = self._load_key()
 
     def _load_key(self):
-        key_filename = "data/node_key-rsa{}.mnk".format(self.instance_postfix)
+        key_filename = os.path.join(self.data_dir, "node_key-rsa{}.mnk".format(self.instance_postfix))
 
         if os.path.exists(key_filename):
             log.info("Node private key file found, loading.")
@@ -361,9 +363,15 @@ def __main():
     parser.add_argument("--webdevel", action="store_true",\
         help="Enable web development mode. This causes Maalstroom to reload"\
             " the web UI modules every request.")
+    
+    parser.add_argument("--data-dir", dest="data_dir",\
+        help="Set the directory where to look for node data")
 
     args = parser.parse_args()
 
+    data_dir = args.data_dir
+    if data_dir is None:
+        data_dir = os.path.join(os.path.expanduser("~"), ".morphis-data")
     addpeer = args.addpeer
     instance = args.nn
     if instance == None:
