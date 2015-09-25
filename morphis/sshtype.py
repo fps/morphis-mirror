@@ -71,6 +71,7 @@ def encodeString(val):
 #    if isinstance(val, bytes) or isinstance(val, bytearray):
 #        buf = val
 #    else:
+    # print(str(val))
     buf = val.encode(encoding="UTF-8")
 
     length = struct.pack(">L", len(buf))

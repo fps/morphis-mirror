@@ -14,19 +14,19 @@ import random
 
 from sqlalchemy import func
 
-import morphis.bittrie
-import morphis.chord
+import morphis.bittrie as bittrie
+# import morphis.chord as chord
 import morphis.chord_packet as cp
 from morphis.chordexception import ChordException
 from morphis.db import Peer, DataBlock, NodeState
-import morphis.mbase32
+import morphis.mbase32 as mbase32
 import morphis.multipart as mp
-import morphis.mutil
-import morphis.enc
-import morphis.node
-import morphis.peer
-import morphis.rsakey
-import morphis.sshtype
+import morphis.mutil as mutil
+import morphis.enc as enc
+# import morphis.node as node
+import morphis.peer as mnpeer
+import morphis.rsakey as rsakey
+import morphis.sshtype as sshtype
 
 log = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class DataResponseWrapper(object):
 
 class TunnelMeta(object):
     def __init__(self, peer=None, jobs=None):
-        assert type(peer) is morphis.node.Peer
+        # assert type(peer) is node.Peer
 
         self.peer = peer
         self.queue = None
@@ -169,7 +169,7 @@ class ChordTasks(object):
         # closest that we found above.
         orig_node_id = self.engine.node_id
 
-        for bit in range(chord.NODE_ID_BITS-1, -1, -1):
+        for bit in range(self.engine.NODE_ID_BITS-1, -1, -1):
             if log.isEnabledFor(logging.INFO):
                 log.info("Performing FindNode for bucket [{}]."\
                     .format(bit+1))
@@ -178,7 +178,7 @@ class ChordTasks(object):
 
             # Change the most significant bit so that the resulting id is
             # inside the bucket for said bit difference.
-            byte_ = chord.NODE_ID_BYTES - 1 - (bit >> 3)
+            byte_ = self.engine.NODE_ID_BYTES - 1 - (bit >> 3)
             bit_pos = bit % 8
             node_id[byte_] ^= 1 << bit_pos
 
@@ -189,7 +189,7 @@ class ChordTasks(object):
                 bit_mask ^= bit_mask - 1
                 node_id[byte_] ^= random.randint(0, 255) & bit_mask
 
-            for i in range(byte_ + 1, chord.NODE_ID_BYTES):
+            for i in range(byte_ + 1, self.engine.NODE_ID_BYTES):
                 node_id[i] ^= random.randint(0, 255)
 
 #            log.warning("Stabilize FindNode id=[{:0512b}]."\
@@ -244,7 +244,7 @@ class ChordTasks(object):
     def send_get_data(self, data_key, path=None, scan_only=False,\
             retry_factor=1):
         assert type(data_key) in (bytes, bytearray)\
-            and len(data_key) == chord.NODE_ID_BYTES,\
+            and len(data_key) == self.engine.NODE_ID_BYTES,\
             "type(data_key)=[{}], len={}."\
                 .format(type(data_key), len(data_key))
 
@@ -312,7 +312,7 @@ class ChordTasks(object):
     @asyncio.coroutine
     def send_get_targeted_data(self, data_key, retry_factor=1):
         assert type(data_key) in (bytes, bytearray)\
-            and len(data_key) == chord.NODE_ID_BYTES,\
+            and len(data_key) == self.engine.NODE_ID_BYTES,\
             "type(data_key)=[{}], len={}."\
                 .format(type(data_key), len(data_key))
 
@@ -339,7 +339,7 @@ class ChordTasks(object):
                     .format(mbase32.encode(data_key_prefix), significant_bits,\
                         mbase32.encode(target_key)))
 
-        ldiff = chord.NODE_ID_BYTES - len(data_key_prefix)
+        ldiff = self.engine.NODE_ID_BYTES - len(data_key_prefix)
         if ldiff > 0:
             data_key_prefix += b'\x00' * ldiff
 
@@ -499,7 +499,7 @@ class ChordTasks(object):
         " currently returns the count of nodes that claim to have stored the"\
         " data."
 
-        assert len(node_id) == chord.NODE_ID_BYTES
+        assert len(node_id) == self.engine.NODE_ID_BYTES
         # data_key needs to be bytes for PyCrypto usage later on.
         assert data_key is None or type(data_key) is bytes, type(data_key)
 
@@ -2124,8 +2124,8 @@ class ChordTasks(object):
         min_sig_bits = 20 if target_key is not None else 1
 
         if significant_bits and significant_bits >= min_sig_bits:
-            mask = ((1 << (chord.NODE_ID_BITS - significant_bits)) - 1)\
-                .to_bytes(chord.NODE_ID_BYTES, "big")
+            mask = ((1 << (self.engine.NODE_ID_BITS - significant_bits)) - 1)\
+                .to_bytes(self.engine.NODE_ID_BYTES, "big")
 
             end_id = bytearray()
 

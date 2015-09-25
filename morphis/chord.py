@@ -22,6 +22,7 @@ import morphis.chord_packet as cp
 import morphis.chord_tasks as ct
 import morphis.packet as mnetpacket
 import morphis.rsakey as rsakey
+import morphis.sshtype as sshtype
 import morphis.mn1 as mn1 
 import morphis.mutil as mutil
 import morphis.peer as mnpeer
@@ -80,6 +81,8 @@ class ChordEngine():
         self._last_stabilize = None
 
         self.tasks = ct.ChordTasks(self)
+        self.NODE_ID_BYTES = NODE_ID_BYTES
+        self.NODE_ID_BITS = NODE_ID_BITS
 
         self.furthest_data_block = b""
 

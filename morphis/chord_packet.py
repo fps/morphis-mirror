@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import morphis.llog
+import morphis.llog as llog
 
 from enum import Enum
 import logging
@@ -10,7 +10,7 @@ import struct
 from morphis.chordexception import ChordException
 from morphis.db import Peer
 import morphis.peer as mnpeer
-import morphis.sshtype
+import morphis.sshtype as sshtype
 
 # Chord Message Types.
 CHORD_MSG_RELAY = 100
