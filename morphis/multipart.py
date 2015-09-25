@@ -247,7 +247,7 @@ class TargetedBlock(MorphisBlock):
 
 class HashTreeFetch(object):
     def __init__(self, engine, data_callback, ordered=False, positions=None,\
-            retry_seconds=30, concurrency=64):
+            retry_seconds=30, concurrency=8):
         self.engine = engine
         self.data_callback = data_callback
         self.ordered = ordered
@@ -482,7 +482,7 @@ class HashTreeFetch(object):
 
 @asyncio.coroutine
 def get_data_buffered(engine, data_key, path=None, retry_seconds=30,\
-        concurrency=64, max_link_depth=1):
+        concurrency=8, max_link_depth=1):
     cb = BufferingDataCallback()
 
     r = yield from get_data(engine, data_key, cb, path=path, ordered=True,\
@@ -506,7 +506,7 @@ def get_data_buffered(engine, data_key, path=None, retry_seconds=30,\
 
 @asyncio.coroutine
 def get_data(engine, data_key, data_callback, path=None, ordered=False,\
-        positions=None, retry_seconds=30, concurrency=64, max_link_depth=1):
+        positions=None, retry_seconds=30, concurrency=8, max_link_depth=1):
     assert not path or type(path) is bytes, type(path)
     assert isinstance(data_callback, DataCallback), type(data_callback)
 
@@ -591,7 +591,7 @@ def get_data(engine, data_key, data_callback, path=None, ordered=False,\
 
 @asyncio.coroutine
 def store_data(engine, data, privatekey=None, path=None, version=None,\
-        key_callback=None, store_key=True, mime_type="", concurrency=64):
+        key_callback=None, store_key=True, mime_type="", concurrency=8):
     data_len = len(data)
 
     if isinstance(key_callback, KeyCallback):
