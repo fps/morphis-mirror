@@ -149,7 +149,7 @@ class ChordTasks(object):
         found_new_nodes |= new_nodes
 
         if not closest_found_distance:
-            closest_found_distance = chord.NODE_ID_BITS
+            closest_found_distance = self.engine.NODE_ID_BITS
             if furthest_nodes:
                 for node in furthest_nodes:
                     if node.distance\
