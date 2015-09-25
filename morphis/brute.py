@@ -8,11 +8,11 @@ import multiprocessing as mp
 import os
 import time
 
-import morphis.enc
-import morphis.mbase32
-import morphis.multipart
-import morphis.mutil
-import morphis.rsakey
+import morphis.enc as enc
+import morphis.mbase32 as mbase32
+import morphis.multipart as multipart
+import morphis.mutil as mutil
+import morphis.rsakey as rsakey
 
 log = logging.getLogger(__name__)
 

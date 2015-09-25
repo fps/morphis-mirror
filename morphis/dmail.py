@@ -13,18 +13,18 @@ import time
 
 from sqlalchemy import func
 
-import morphis.base58
-import morphis.brute
-import morphis.chord
-import morphis.consts
-import morphis.db
-import morphis.mbase32
+import morphis.base58 as base58
+import morphis.brute as brute
+import morphis.chord as chord
+import morphis.consts as consts
+import morphis.db as db
+import morphis.mbase32 as mbase32
 import morphis.multipart as mp
-import morphis.mutil
-import morphis.dhgroup14
-import morphis.enc
-import morphis.sshtype
-import morphis.rsakey
+import morphis.mutil as mutil
+import morphis.dhgroup14 as dhgroup14
+import morphis.enc as enc
+import morphis.sshtype as sshtype
+import morphis.rsakey as rsakey
 
 log = logging.getLogger(__name__)
 

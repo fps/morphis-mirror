@@ -502,7 +502,7 @@ class MaalstroomDispatcher(object):
         log.info("POST; rpath=[{}].".format(rpath))
 
         if rpath.startswith(".dmail") and morphis.maalstroom.dmail_enabled:
-            yield from maalstroom.dmail.serve_post(self, rpath)
+            yield from morphis.maalstroom.dmail.serve_post(self, rpath)
             return
 
         if rpath != ".upload/upload" or not morphis.maalstroom.upload_enabled:

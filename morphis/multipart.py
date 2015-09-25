@@ -14,12 +14,12 @@ import random
 import struct
 from enum import Enum
 
-import morphis.consts
-import morphis.enc
-import morphis.mbase32
-import morphis.node
+import morphis.consts as consts
+import morphis.enc as enc
+import morphis.mbase32 as mbase32
+# import morphis.node as node
 import morphis.peer as mnpeer
-import morphis.sshtype
+import morphis.sshtype as sshtype
 
 log = logging.getLogger(__name__)
 

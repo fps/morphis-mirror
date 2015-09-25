@@ -1008,7 +1008,7 @@ class ChordEngine():
                 if log.isEnabledFor(logging.INFO):
                     log.info("Peer requested tunnel operation took too long;"\
                         " aborting.")
-                yield from mnpeer.protocol.close_channel(local_cid);
+                yield from peer.protocol.close_channel(local_cid);
 
             return True
 
