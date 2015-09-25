@@ -156,7 +156,7 @@ class ChordTasks(object):
                             and node.distance < closest_found_distance:
                         closest_found_distance = node.distance
 
-            if closest_found_distance is chord.NODE_ID_BITS:
+            if closest_found_distance is self.engine.NODE_ID_BITS:
                 log.info("Don't know how close a bucket to stop at so not"\
                     " searching inbetween closest and furthest.")
                 return
