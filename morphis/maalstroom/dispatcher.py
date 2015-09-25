@@ -169,7 +169,7 @@ class MaalstroomDispatcher(object):
             self.send_content(\
                 templates.favicon_content, content_type="image/png")
             return
-        elif rpath.startswith(".upload") and maalstroom.upload_enabled:
+        elif rpath.startswith(".upload") and morphis.maalstroom.upload_enabled:
             if rpath.startswith(".upload/generate"):
                 priv_key =\
                     base58.encode(\
@@ -899,7 +899,7 @@ class MaalstroomDispatcher(object):
         self.close()
 
     def close(self):
-        self.outq.put(maalstroom.Close)
+        self.outq.put(morphis.maalstroom.Close)
 
     def end_partial_content(self):
         self.write(b"0\r\n\r\n")
