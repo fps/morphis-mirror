@@ -1,6 +1,8 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
+__import__('pkg_resources').declare_namespace(__name__)
+
 import llog
 
 import asyncio
