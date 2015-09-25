@@ -8,8 +8,8 @@ from datetime import datetime, tzinfo, timedelta
 import logging
 import time
 
-import morphis.consts
-import morphis.mbase32
+import morphis.consts as consts
+import morphis.mbase32 as mbase32
 
 log = logging.getLogger(__name__)
 

@@ -52,7 +52,7 @@ class BufferingDataCallback(DataCallback):
         self.version = version
 
     def notify_size(self, size):
-        if size > node.MAX_DATA_BLOCK_SIZE:
+        if size > morphis.node.MAX_DATA_BLOCK_SIZE:
             self.data = bytearray()
         self.size = size
 

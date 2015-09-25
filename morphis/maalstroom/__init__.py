@@ -15,6 +15,7 @@ import threading
 import morphis.client_engine as cengine
 import morphis.enc as enc
 import morphis.mbase32 as mbase32
+import morphis.node as node
 from . import templates
 from . import dispatcher
 from . import dmail
@@ -287,7 +288,7 @@ def get_client_engine():
     if client_engine:
         return client_engine
 
-    yield from morphis.node.ready.wait()
+    yield from node.ready.wait()
 
     yield from _client_engine.start()
 

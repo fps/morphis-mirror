@@ -9,16 +9,18 @@ from threading import Event
 import time
 from urllib.parse import unquote
 
-import morphis.base58
-import morphis.chord
-import morphis.enc
+import morphis.base58 as base58
+import morphis.chord as chord
+import morphis.enc as enc
 
 from . import templates
 
-import morphis.mbase32
-import morphis.multipart
-import morphis.mutil
-import morphis.rsakey
+import morphis.mbase32 as mbase32
+import morphis.multipart as multipart
+import morphis.mutil as mutil
+import morphis.rsakey as rsakey
+
+import morphis.maalstroom
 
 log = logging.getLogger(__name__)
 
@@ -44,7 +46,7 @@ class MaalstroomDispatcher(object):
         if self.client_engine:
             return
 
-        self.client_engine = yield from maalstroom.get_client_engine()
+        self.client_engine = yield from morphis.maalstroom.get_client_engine()
 
     @property
     def connection_count(self):
@@ -77,10 +79,10 @@ class MaalstroomDispatcher(object):
         self.outq.put(data)
 
     def flush(self):
-        self.outq.put(maalstroom.Flush)
+        self.outq.put(morphis.maalstroom.Flush)
 
     def finish_response(self):
-        self.outq.put(maalstroom.Done)
+        self.outq.put(morphis.maalstroom.Done)
         self.finished_request = True
 
     @asyncio.coroutine
@@ -208,8 +210,8 @@ class MaalstroomDispatcher(object):
                 self.send_content(template)
 
             return
-        elif rpath.startswith(".dmail") and maalstroom.dmail_enabled:
-            yield from maalstroom.dmail.serve_get(self, rpath)
+        elif rpath.startswith(".dmail") and morphis.maalstroom.dmail_enabled:
+            yield from morphis.maalstroom.dmail.serve_get(self, rpath)
             return
         else:
             self.send_error(errcode=400)
@@ -499,11 +501,11 @@ class MaalstroomDispatcher(object):
     def _do_POST(self, rpath):
         log.info("POST; rpath=[{}].".format(rpath))
 
-        if rpath.startswith(".dmail") and maalstroom.dmail_enabled:
+        if rpath.startswith(".dmail") and morphis.maalstroom.dmail_enabled:
             yield from maalstroom.dmail.serve_post(self, rpath)
             return
 
-        if rpath != ".upload/upload" or not maalstroom.upload_enabled:
+        if rpath != ".upload/upload" or not morphis.maalstroom.upload_enabled:
             self.send_error(errcode=400)
             return
 
