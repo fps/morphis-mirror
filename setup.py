@@ -11,7 +11,7 @@ setup(
     packages = find_packages(),
 
     package_data = {
-        'morphis': [ '*.ico' , 'VERSION', 'maalstroom/templates/main/*', 'maalstroom/templates/dmail/*' ]
+        'morphis': [ '*.ico' , 'VERSION', 'maalstroom/templates/main/*', 'maalstroom/templates/dmail/*' , 'maalstroom/resources/style.css', 'maalstroom/resources/images/dmail/*' ]
     }    
 )
 
