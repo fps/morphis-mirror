@@ -23,8 +23,8 @@ import morphis.mbase32
 import morphis.multipart as mp
 import morphis.mutil
 import morphis.enc
-import morphis.node as mnnode
-import morphis.peer as mnpeer
+import morphis.node
+import morphis.peer
 import morphis.rsakey
 import morphis.sshtype
 
@@ -53,7 +53,7 @@ class DataResponseWrapper(object):
 
 class TunnelMeta(object):
     def __init__(self, peer=None, jobs=None):
-        assert type(peer) is mnpeer.Peer
+        assert type(peer) is morphis.node.Peer
 
         self.peer = peer
         self.queue = None
@@ -65,7 +65,7 @@ class VPeer(object):
     def __init__(self, peer=None, path=None, tun_meta=None):
         # self.peer can be a mnpeer.Peer for immediate Peer, or a db.Peer for
         # a non immediate (tunneled) Peer.
-        assert type(peer) is Peer or type(peer) is mnpeer.Peer
+        assert type(peer) is Peer or type(peer) is morphis.node.peer.Peer
 
         self.peer = peer
         self.path = path
@@ -2259,14 +2259,14 @@ class ChordTasks(object):
 
                     if current_datastore_size - freeable_space\
                             <= current_datastore_max_size\
-                                - mnnode.MAX_DATA_BLOCK_SIZE:
+                                - morphis.node.MAX_DATA_BLOCK_SIZE:
                         if log.isEnabledFor(logging.DEBUG):
                             log.debug("Found enough purgable blocks to fit"\
                                 " new proposed block.")
                         return True
 
                 assert current_datastore_size - freeable_space\
-                    > current_datastore_max_size - mnnode.MAX_DATA_BLOCK_SIZE
+                    > current_datastore_max_size - morphis.node.MAX_DATA_BLOCK_SIZE
 
                 if log.isEnabledFor(logging.DEBUG):
                     log.debug("Not enough purgable blocks to fit new"\
@@ -2749,7 +2749,7 @@ class ChordTasks(object):
                     # Rule: only update this NodeState row when holding a lock
                     # on the DataBlock table.
                     node_state = sess.query(NodeState)\
-                        .filter(NodeState.key == mnnode.NSK_DATASTORE_SIZE)\
+                        .filter(NodeState.key == morphis.node.NSK_DATASTORE_SIZE)\
                         .first()
 
                     node_state.value =\
@@ -2792,12 +2792,12 @@ class ChordTasks(object):
         # Rule: only update this NodeState row when holding a lock on
         # the DataBlock table.
         node_state = sess.query(NodeState)\
-            .filter(NodeState.key == mnnode.NSK_DATASTORE_SIZE)\
+            .filter(NodeState.key == morphis.node.NSK_DATASTORE_SIZE)\
             .first()
 
         if not node_state:
             node_state = NodeState()
-            node_state.key = mnnode.NSK_DATASTORE_SIZE
+            node_state.key = norphis.node.NSK_DATASTORE_SIZE
             node_state.value = 0
             sess.add(node_state)
 

@@ -7,11 +7,11 @@ import time
 
 from sqlalchemy.orm import joinedload
 
-import base58
+import morphis.base58
 import morphis.chord
 from morphis.db import DmailAddress
 import morphis.dhgroup14
-import dmail
+import morphis.dmail
 import morphis.mbase32
 import morphis.multipart
 import morphis.rsakey

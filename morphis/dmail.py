@@ -13,8 +13,8 @@ import time
 
 from sqlalchemy import func
 
-import base58
-import brute
+import morphis.base58
+import morphis.brute
 import morphis.chord
 import morphis.consts
 import morphis.db

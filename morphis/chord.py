@@ -25,14 +25,14 @@ import morphis.rsakey
 import morphis.mn1
 import morphis.mutil
 import morphis.peer as mnpeer
-import shell
+import morphis.shell
 import morphis.enc
 from morphis.db import Peer
 from morphis.mutil import hex_dump, log_base2_8bit, hex_string, calc_log_distance
 
 BUCKET_SIZE = 16
 
-NODE_ID_BITS = enc.ID_BITS
+NODE_ID_BITS = morphis.enc.ID_BITS
 NODE_ID_BYTES = NODE_ID_BITS >> 3
 
 log = logging.getLogger(__name__)
@@ -899,9 +899,9 @@ class ChordEngine():
 
     @asyncio.coroutine
     def _shell_exec(self, shell, cmd):
-        result = yield from shell.onecmd(cmd)
+        result = yield from morphis.shell.onecmd(cmd)
         shell.flush()
-        yield from shell.peer.protocol.close_channel(shell.local_cid)
+        yield from morphis.shell.peer.protocol.close_channel(shell.local_cid)
 
     @asyncio.coroutine
     def channel_data(self, peer, local_cid, data):

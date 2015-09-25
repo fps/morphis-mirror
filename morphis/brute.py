@@ -17,7 +17,7 @@ import morphis.rsakey
 log = logging.getLogger(__name__)
 
 WORKERS = os.cpu_count()
-HASH_BITS = enc.ID_BITS
+HASH_BITS = morphis.enc.ID_BITS
 HASH_BYTES = HASH_BITS >> 3
 
 def generate_targeted_block(prefix, nbits, data, nonce_offset, nonce_size):

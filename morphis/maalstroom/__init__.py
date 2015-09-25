@@ -3,7 +3,7 @@
 
 __import__('pkg_resources').declare_namespace(__name__)
 
-import llog
+import morphis.llog
 
 import asyncio
 import functools
@@ -14,10 +14,10 @@ import queue
 from socketserver import ThreadingMixIn
 import threading
 
-import client_engine as cengine
-import enc
-import mbase32
-import maalstroom.templates as templates
+import morphis.client_engine as cengine
+import morphis.enc
+import morphis.mbase32
+import morphis.maalstroom.templates as templates
 import maalstroom.dispatcher as dispatcher
 import maalstroom.dmail
 
@@ -289,7 +289,7 @@ def get_client_engine():
     if client_engine:
         return client_engine
 
-    yield from node.ready.wait()
+    yield from morphis.node.ready.wait()
 
     yield from _client_engine.start()
 

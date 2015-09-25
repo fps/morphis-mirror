@@ -7,13 +7,13 @@ import asyncio
 import logging
 import os
 
-import base58
+import morphis.base58
 import morphis.chord_tasks
 import morphis.mbase32
 import morphis.mn1
 import morphis.packet as mnp
 import morphis.rsakey
-from shell import BinaryMessage
+from morphis.shell import BinaryMessage
 
 log = logging.getLogger(__name__)
 

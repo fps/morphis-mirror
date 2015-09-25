@@ -9,11 +9,11 @@ import logging
 import os
 from sys import stdin
 
-import base58
-import brute
+import morphis.base58
+import morphis.brute
 import client
 import morphis.db
-import dmail
+import morphis.dmail
 import morphis.enc
 import morphis.mbase32
 import morphis.mutil

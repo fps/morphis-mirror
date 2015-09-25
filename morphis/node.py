@@ -272,8 +272,8 @@ def main():
     loop.close()
 
     if maalstroom_enabled:
-        import maalstroom
-        maalstroom.shutdown()
+        import morphis.maalstroom
+        morphis.maalstroom.shutdown()
 
     log.info("Shutdown.")
 

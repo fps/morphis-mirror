@@ -1,4 +1,4 @@
-import llog
+import morphis.llog
 
 import asyncio
 import cgi
@@ -9,14 +9,14 @@ from threading import Event
 import time
 from urllib.parse import unquote
 
-import base58
-import chord
-import enc
+import morphis.base58
+import morphis.chord
+import morphis.enc
 import maalstroom
-import maalstroom.templates as templates
-import mbase32
-import multipart
-import mutil
+import morphis.maalstroom.templates as templates
+import morphis.mbase32
+import morphis.multipart
+import morphis.mutil
 import rsakey
 
 log = logging.getLogger(__name__)
@@ -339,7 +339,7 @@ class MaalstroomDispatcher(object):
             @asyncio.coroutine
             def call_wrapper():
                 try:
-                    yield from multipart.get_data(\
+                    yield from morphis.multipart.get_data(\
                         self.node.chord_engine, data_key, data_callback,\
                         path=path, ordered=True)
                 except Exception as e:
@@ -591,7 +591,7 @@ class MaalstroomDispatcher(object):
         try:
             key_callback = KeyCallback()
 
-            yield from multipart.store_data(\
+            yield from morphis.multipart.store_data(\
                 self.node.chord_engine, data, privatekey=privatekey,\
                 path=path, version=version, key_callback=key_callback,\
                 mime_type=mime_type)
@@ -962,7 +962,7 @@ def _send_store_data(data, data_rw, privatekey=None, path=None, version=None,\
     try:
         key_callback = KeyCallback(data_rw)
 
-        yield from multipart.store_data(\
+        yield from morphis.multipart.store_data(\
             node.chord_engine, data, privatekey=privatekey, path=path,\
             version=version, key_callback=key_callback, mime_type=mime_type)
     except asyncio.TimeoutError:

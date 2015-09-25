@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 from datetime import datetime
@@ -14,16 +14,16 @@ from urllib.parse import parse_qs, quote_plus, unquote
 from sqlalchemy import func, not_, and_
 from sqlalchemy.orm import joinedload
 
-import base58
-import consts
-from db import DmailAddress, DmailKey, DmailMessage, DmailTag, DmailPart,\
+import morphis.base58
+import morphis.consts
+from morphis.db import DmailAddress, DmailKey, DmailMessage, DmailTag, DmailPart,\
     NodeState
-import dhgroup14
-import enc
-import dmail
-import mbase32
-import mutil
-import maalstroom.templates as templates
+import morphis.dhgroup14
+import morphis.enc
+import morphis.dmail
+import morphis.mbase32
+import morphis.mutil
+import morphis.maalstroom.templates as templates
 import rsakey
 import sshtype
 

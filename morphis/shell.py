@@ -9,7 +9,7 @@ from datetime import datetime
 import logging
 import queue as tqueue
 
-import base58
+import morphis.base58
 import morphis.chord
 import morphis.db
 import morphis.enc
