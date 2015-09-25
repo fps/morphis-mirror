@@ -7,10 +7,10 @@ import asyncio
 import logging
 from hashlib import sha1
 
-import morphis.dhgroup14
+import morphis.dhgroup14 as dhgroup14
 from morphis.sshexception import SshException
-import morphis.sshtype
-import morphis.packet as mnp
+import morphis.sshtype as sshtype
+import morphis.packet as mnp 
 
 log = logging.getLogger(__name__)
 

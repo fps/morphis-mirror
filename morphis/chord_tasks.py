@@ -92,7 +92,7 @@ class ChordTasks(object):
         log.info("Sending ChordNodeInfo message.")
 
         local_cid, queue =\
-            yield from morphis.peer.protocol.open_channel("mpeer", True)
+            yield from peer.protocol.open_channel("mpeer", True)
         if not queue:
             return
 
@@ -112,7 +112,7 @@ class ChordTasks(object):
         peer.version = msg.version
         peer.full_node = True
 
-        yield from morphis.peer.protocol.close_channel(local_cid)
+        yield from peer.protocol.close_channel(local_cid)
 
         yield from self.engine._check_update_remote_address(msg, peer)
 
@@ -1796,7 +1796,7 @@ class ChordTasks(object):
         if not rlist:
             log.info("No nodes closer than ourselves.")
             if not will_store and (fnmsg.significant_bits or not data_present):
-                yield from morphis.peer.protocol.close_channel(local_cid)
+                yield from peer.protocol.close_channel(local_cid)
                 return
 
         lmsg = cp.ChordPeerList()
@@ -1821,7 +1821,7 @@ class ChordTasks(object):
                 # If all the tunnels were closed and we aren't waiting for
                 # data, then we clean up and exit.
                 yield from self._close_tunnels(rlist)
-                yield from morphis.peer.protocol.close_channel(local_cid)
+                yield from peer.protocol.close_channel(local_cid)
                 return
 
             packet_type = cp.ChordMessage.parse_type(pkt)
@@ -1892,7 +1892,7 @@ class ChordTasks(object):
                 # immediate PeerS through us as a tunnel, so we clean up and
                 # exit.
                 yield from self._close_tunnels(rlist)
-                yield from morphis.peer.protocol.close_channel(local_cid)
+                yield from peer.protocol.close_channel(local_cid)
                 return
             else:
                 rmsg = cp.ChordRelay(pkt)

@@ -15,7 +15,7 @@ import hmac
 
 import morphis.packet as mnetpacket
 import morphis.kex as kex
-import morphis.kexdhgroup14sha1
+import morphis.kexdhgroup14sha1 as kexdhgroup14sha1
 import morphis.rsakey as rsakey
 import morphis.sshtype as sshtype
 from morphis.sshexception import SshException

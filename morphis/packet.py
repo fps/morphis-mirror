@@ -6,7 +6,7 @@ import morphis.llog
 import struct
 import logging
 
-import morphis.sshtype
+import morphis.sshtype as sshtype
 
 SSH_MSG_DISCONNECT = 1
 SSH_MSG_IGNORE = 2

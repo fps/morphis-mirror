@@ -593,7 +593,7 @@ class ChordEngine():
 
         add_to_peers = None
 
-        yield from morphis.peer.connection_coop_lock.acquire()
+        yield from peer.connection_coop_lock.acquire()
         try:
             r, add_to_peers = yield from self._peer_authenticated(peer)
         finally:
@@ -1005,7 +1005,7 @@ class ChordEngine():
                 if log.isEnabledFor(logging.INFO):
                     log.info("Peer requested tunnel operation took too long;"\
                         " aborting.")
-                yield from morphis.peer.protocol.close_channel(local_cid);
+                yield from mnpeer.protocol.close_channel(local_cid);
 
             return True
 
