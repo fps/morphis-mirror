@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: LGPL
 
-import llog
+import morphis.llog
 
 import asyncio
 from enum import Enum
@@ -13,13 +13,13 @@ from Crypto.Cipher import AES
 from hashlib import sha1
 import hmac
 
-import packet as mnetpacket
-import kex
-import kexdhgroup14sha1
-import rsakey
-import sshtype
-from sshexception import SshException
-from mutil import hex_dump
+import morphis.packet as mnetpacket
+import morphis.kex
+import morphis.kexdhgroup14sha1
+import morphis.rsakey
+import morphis.sshtype
+from morphis.sshexception import SshException
+from morphis.mutil import hex_dump
 
 MAX_PACKET_LENGTH = 35000
 

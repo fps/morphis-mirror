@@ -1,16 +1,16 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: LGPL
 
-import llog
+import morphis.llog
 
 import asyncio
 import logging
 from hashlib import sha1
 
-import dhgroup14
-from sshexception import SshException
-import sshtype
-import packet as mnp
+import morphis.dhgroup14
+from morphis.sshexception import SshException
+import morphis.sshtype
+import morphis.packet as mnp
 
 log = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 from collections import deque
@@ -14,12 +14,12 @@ import random
 import struct
 from enum import Enum
 
-import consts
-import enc
-import mbase32
-import node
-import peer as mnpeer
-import sshtype
+import morphis.consts
+import morphis.enc
+import morphis.mbase32
+import morphis.node
+import morphis.peer as mnpeer
+import morphis.sshtype
 
 log = logging.getLogger(__name__)
 
@@ -158,8 +158,8 @@ class HashTreeBlock(MorphisBlock):
         nbuf += struct.pack(">L", self.depth)
         nbuf += struct.pack(">Q", self.size)
 
-        assert consts.NODE_ID_BYTES == HashTreeBlock.HEADER_BYTES
-        nbuf += b' ' * (consts.NODE_ID_BYTES - len(nbuf))
+        assert morphis.consts.NODE_ID_BYTES == HashTreeBlock.HEADER_BYTES
+        nbuf += b' ' * (morphis.consts.NODE_ID_BYTES - len(nbuf))
 
         nbuf += self.data
 
@@ -196,7 +196,7 @@ class TargetedBlock(MorphisBlock):
     NOONCE_OFFSET = MorphisBlock.HEADER_BYTES
     NOONCE_SIZE = 64 #FIXME: This was suppose to be 64 bits, not bytes.
     BLOCK_OFFSET = MorphisBlock.HEADER_BYTES + NOONCE_SIZE\
-        + 2 * consts.NODE_ID_BYTES
+        + 2 * morphis.consts.NODE_ID_BYTES
 
     @staticmethod
     def set_nonce(data, nonce_bytes):
@@ -220,17 +220,17 @@ class TargetedBlock(MorphisBlock):
         assert len(self.nonce) == TargetedBlock.NOONCE_SIZE
         nbuf += self.nonce
         assert self.target_key is not None\
-            and len(self.target_key) == consts.NODE_ID_BYTES
+            and len(self.target_key) == morphis.consts.NODE_ID_BYTES
         nbuf += self.target_key
 
-        nbuf += b' ' * consts.NODE_ID_BYTES # block_hash placeholder.
+        nbuf += b' ' * morphis.consts.NODE_ID_BYTES # block_hash placeholder.
 
         assert len(nbuf) == TargetedBlock.BLOCK_OFFSET
 
         self.block.encode(nbuf)
 
         self.block_hash = enc.generate_ID(nbuf[TargetedBlock.BLOCK_OFFSET:])
-        block_hash_offset = TargetedBlock.BLOCK_OFFSET-consts.NODE_ID_BYTES
+        block_hash_offset = TargetedBlock.BLOCK_OFFSET-morphis.consts.NODE_ID_BYTES
         nbuf[block_hash_offset:TargetedBlock.BLOCK_OFFSET] = self.block_hash
 
         return nbuf
@@ -240,10 +240,10 @@ class TargetedBlock(MorphisBlock):
 
         self.nonce = self.buf[i:i+TargetedBlock.NOONCE_SIZE]
         i += TargetedBlock.NOONCE_SIZE
-        self.target_key = self.buf[i:i+consts.NODE_ID_BYTES]
-        i += consts.NODE_ID_BYTES
-        self.block_hash = self.buf[i:i+consts.NODE_ID_BYTES]
-        i += consts.NODE_ID_BYTES
+        self.target_key = self.buf[i:i+morphis.consts.NODE_ID_BYTES]
+        i += morphis.consts.NODE_ID_BYTES
+        self.block_hash = self.buf[i:i+morphis.consts.NODE_ID_BYTES]
+        i += morphis.consts.NODE_ID_BYTES
 
 class HashTreeFetch(object):
     def __init__(self, engine, data_callback, ordered=False, positions=None,\
@@ -319,18 +319,18 @@ class HashTreeFetch(object):
     def _fetch_hash_tree_refs(self, hash_tree_data, offset, depth, position):
         data_len = len(hash_tree_data) - offset
 
-        key_cnt = int(data_len / consts.NODE_ID_BYTES)
+        key_cnt = int(data_len / morphis.consts.NODE_ID_BYTES)
 
         if depth == 1:
-            pdiff = consts.MAX_DATA_BLOCK_SIZE
+            pdiff = morphis.consts.MAX_DATA_BLOCK_SIZE
         else:
             pdiff =\
-                pow(consts.MAX_DATA_BLOCK_SIZE, depth) / consts.NODE_ID_BYTES
+                pow(morphis.consts.MAX_DATA_BLOCK_SIZE, depth) / morphis.consts.NODE_ID_BYTES
 
         subdepth = depth - 1
 
         for i in range(key_cnt):
-            end = offset + consts.NODE_ID_BYTES
+            end = offset + morphis.consts.NODE_ID_BYTES
             eposition = position + pdiff
 
             if self.positions:
@@ -600,7 +600,7 @@ def store_data(engine, data, privatekey=None, path=None, version=None,\
     else:
         key_callback_obj = None
 
-    if mime_type or (privatekey and data_len > consts.MAX_DATA_BLOCK_SIZE):
+    if mime_type or (privatekey and data_len > morphis.consts.MAX_DATA_BLOCK_SIZE):
         store_link = True
 
         root_block_key = None
@@ -614,7 +614,7 @@ def store_data(engine, data, privatekey=None, path=None, version=None,\
     else:
         store_link = False
 
-    if data_len <= consts.MAX_DATA_BLOCK_SIZE:
+    if data_len <= morphis.consts.MAX_DATA_BLOCK_SIZE:
         if log.isEnabledFor(logging.INFO):
             log.info("Data fits in one block, performing simple store.")
 
@@ -659,7 +659,7 @@ def store_data(engine, data, privatekey=None, path=None, version=None,\
 
 def __key_callback(keys, idx, key):
     key_len = len(key)
-    assert key_len == consts.NODE_ID_BYTES
+    assert key_len == morphis.consts.NODE_ID_BYTES
     idx = key_len * idx
     keys[idx:idx+key_len] = key
 
@@ -669,17 +669,17 @@ def _store_data_multipart(engine, data, key_callback, store_key, concurrency):
     task_semaphore = asyncio.Semaphore(concurrency)
 
     full_data_len = data_len = len(data)
-    assert data_len > consts.MAX_DATA_BLOCK_SIZE
+    assert data_len > morphis.consts.MAX_DATA_BLOCK_SIZE
 
     while True:
-        nblocks = int(data_len / consts.MAX_DATA_BLOCK_SIZE)
-        if data_len % consts.MAX_DATA_BLOCK_SIZE:
+        nblocks = int(data_len / morphis.consts.MAX_DATA_BLOCK_SIZE)
+        if data_len % morphis.consts.MAX_DATA_BLOCK_SIZE:
             nblocks += 1
 
-        keys = bytearray(nblocks * consts.NODE_ID_BYTES)
+        keys = bytearray(nblocks * morphis.consts.NODE_ID_BYTES)
 
         start = 0
-        end = consts.MAX_DATA_BLOCK_SIZE
+        end = morphis.consts.MAX_DATA_BLOCK_SIZE
 
         tasks = []
 

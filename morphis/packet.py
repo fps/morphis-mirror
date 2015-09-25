@@ -1,12 +1,12 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: LGPL
 
-import llog
+import morphis.llog
 
 import struct
 import logging
 
-import sshtype
+import morphis.sshtype
 
 SSH_MSG_DISCONNECT = 1
 SSH_MSG_IGNORE = 2

@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 import threading
@@ -17,8 +17,8 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.pool import Pool
 from sqlalchemy.types import LargeBinary, Boolean, DateTime
 
-import consts
-import mutil
+import morphis.consts
+import morphis.mutil
 
 log = logging.getLogger(__name__)
 

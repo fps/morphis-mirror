@@ -1,4 +1,4 @@
-import llog
+import morphis.llog
 
 import asyncio
 import logging
@@ -8,14 +8,14 @@ import time
 from sqlalchemy.orm import joinedload
 
 import base58
-import chord
-from db import DmailAddress
-import dhgroup14
+import morphis.chord
+from morphis.db import DmailAddress
+import morphis.dhgroup14
 import dmail
-import mbase32
-import multipart
-import rsakey
-import sshtype
+import morphis.mbase32
+import morphis.multipart
+import morphis.rsakey
+import morphis.sshtype
 
 log = logging.getLogger(__name__)
 

@@ -1,18 +1,18 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 import logging
 import os
 
 import base58
-import chord_tasks
-import mbase32
-import mn1
-import packet as mnp
-import rsakey
+import morphis.chord_tasks
+import morphis.mbase32
+import morphis.mn1
+import morphis.packet as mnp
+import morphis.rsakey
 from shell import BinaryMessage
 
 log = logging.getLogger(__name__)

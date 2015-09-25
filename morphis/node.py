@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 import logging
@@ -10,13 +10,13 @@ import argparse
 
 from sqlalchemy import update, func
 
-import packet as mnetpacket
-import rsakey
-import mn1
-from mutil import hex_dump, hex_string
-import chord
-import peer
-import db
+import morphis.packet as mnetpacket
+import morphis.rsakey
+import morphis.mn1
+from morphis.mutil import hex_dump, hex_string
+import morphis.chord
+import morphis.peer
+import morphis.db
 
 from pkg_resources import Requirement, resource_string, resource_filename
 
@@ -441,7 +441,7 @@ def __main():
 
                 yield from maalstroom.start_maalstroom_server(node)
 
-            yield from node.init_db()
+            yield from morphis.node.init_db()
 
             if bindaddr:
                 node.bind_address = bindaddr
@@ -477,7 +477,7 @@ def __main():
 
                 maalstroom.set_client_engine(ce)
 
-            yield from node.start()
+            yield from morphis.node.start()
 
         if parallel_launch:
             asyncio.async(_start_node(instance, bindaddr), loop=loop)

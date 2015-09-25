@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import argparse
 import asyncio
@@ -12,13 +12,13 @@ from sys import stdin
 import base58
 import brute
 import client
-import db
+import morphis.db
 import dmail
-import enc
-import mbase32
-import mutil
-import rsakey
-import sshtype
+import morphis.enc
+import morphis.mbase32
+import morphis.mutil
+import morphis.rsakey
+import morphis.sshtype
 
 log = logging.getLogger(__name__)
 

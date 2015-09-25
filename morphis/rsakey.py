@@ -7,7 +7,7 @@
 """
 RSA keys.
 """
-import llog
+import morphis.llog
 
 import os
 from hashlib import sha1
@@ -16,13 +16,13 @@ import logging
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_PSS
 
-import putil as util
-from putil import *
+import morphis.putil as util
+from morphis.putil import *
 
-import sshtype
-import asymkey
-import enc
-from sshexception import *
+import morphis.sshtype
+import morphis.asymkey
+import morphis.enc
+from morphis.sshexception import *
 
 log = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ SHA1_DIGESTINFO =\
     b'\x30\x21\x30\x09\x06\x05\x2b\x0e\x03\x02\x1a\x05\x00\x04\x14'
 
 #class RsaKey (PKey):
-class RsaKey(asymkey.AsymKey):
+class RsaKey(morphis.asymkey.AsymKey):
     """
     Representation of an RSA key which can be used to sign and verify SSH2
     data.

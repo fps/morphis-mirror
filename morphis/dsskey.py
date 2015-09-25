@@ -13,10 +13,10 @@ from hashlib import sha1
 
 from Crypto.PublicKey import DSA
 
-import putil as util
-from putil import *
+import morphis.putil as util
+from morphis.putil import *
 
-import sshtype
+import morphis.sshtype
 
 #class DssKey (PKey):
 class DssKey():

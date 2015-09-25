@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 import cmd
@@ -10,16 +10,16 @@ import logging
 import queue as tqueue
 
 import base58
-import chord
-import db
-import enc
-import mbase32
-import mn1
-import multipart
-from mutil import hex_dump, hex_string, decode_key, calc_raw_distance
-import node
-import rsakey
-import sshtype
+import morphis.chord
+import morphis.db
+import morphis.enc
+import morphis.mbase32
+import morphis.mn1
+import morphis.multipart
+from morphis.mutil import hex_dump, hex_string, decode_key, calc_raw_distance
+import morphis.node
+import morphis.rsakey
+import morphis.sshtype
 
 log = logging.getLogger(__name__)
 
@@ -383,7 +383,7 @@ class Shell(cmd.Cmd):
 
         start = datetime.today()
         data_rw =\
-            yield from multipart.get_data_buffered(\
+            yield from morphis.multipart.get_data_buffered(\
                 self.peer.engine, data_key, path=path)
         diff = datetime.today() - start
 
@@ -503,7 +503,7 @@ class Shell(cmd.Cmd):
 
         start = datetime.today()
 
-        yield from multipart.store_data(\
+        yield from morphis.multipart.store_data(\
             self.peer.engine, data, key_callback=key_callback)
 
         diff = datetime.today() - start
@@ -527,7 +527,7 @@ class Shell(cmd.Cmd):
 
         start = datetime.today()
 
-        yield from multipart.store_data(\
+        yield from morphis.multipart.store_data(\
             self.peer.engine, data, privatekey=key, path=path,\
             version=version, key_callback=key_callback)
 

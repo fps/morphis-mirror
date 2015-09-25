@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: LGPL
 
-import llog
+import morphis.llog
 
 import os
 import logging

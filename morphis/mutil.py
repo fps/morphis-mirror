@@ -1,15 +1,15 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 from bisect import bisect_left
 from datetime import datetime, tzinfo, timedelta
 import logging
 import time
 
-import consts
-import mbase32
+import morphis.consts
+import morphis.mbase32
 
 log = logging.getLogger(__name__)
 

@@ -1,16 +1,16 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 import logging
 
-import packet as mnpacket
-import rsakey
-import mn1
-import mutil
-import enc
+import morphis.packet as mnpacket
+import morphis.rsakey
+import morphis.mn1
+import morphis.mutil
+import morphis.enc
 
 log = logging.getLogger(__name__)
 

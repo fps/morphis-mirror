@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 from concurrent import futures
@@ -10,25 +10,25 @@ import logging
 from math import sqrt
 import os
 import random
-import sshtype
+import morphis.sshtype
 import struct
 from functools import partial
 from datetime import datetime, timedelta
 
 from sqlalchemy import Integer, String, text, func, desc, or_
 
-import bittrie
-import chord_packet as cp
-import chord_tasks as ct
-import packet as mnetpacket
-import rsakey
-import mn1
-import mutil
-import peer as mnpeer
+import morphis.bittrie
+import morphis.chord_packet as cp
+import morphis.chord_tasks as ct
+import morphis.packet as mnetpacket
+import morphis.rsakey
+import morphis.mn1
+import morphis.mutil
+import morphis.peer as mnpeer
 import shell
-import enc
-from db import Peer
-from mutil import hex_dump, log_base2_8bit, hex_string, calc_log_distance
+import morphis.enc
+from morphis.db import Peer
+from morphis.mutil import hex_dump, log_base2_8bit, hex_string, calc_log_distance
 
 BUCKET_SIZE = 16
 
@@ -573,7 +573,7 @@ class ChordEngine():
                 dbpeer.connected = False
                 sess.commit()
 
-        yield from peer.connection_coop_lock.acquire()
+        yield from morphis.peer.connection_coop_lock.acquire()
         try:
             yield from self.loop.run_in_executor(None, dbcall)
         finally:
@@ -593,7 +593,7 @@ class ChordEngine():
 
         add_to_peers = None
 
-        yield from peer.connection_coop_lock.acquire()
+        yield from morphis.peer.connection_coop_lock.acquire()
         try:
             r, add_to_peers = yield from self._peer_authenticated(peer)
         finally:
@@ -1005,7 +1005,7 @@ class ChordEngine():
                 if log.isEnabledFor(logging.INFO):
                     log.info("Peer requested tunnel operation took too long;"\
                         " aborting.")
-                yield from peer.protocol.close_channel(local_cid);
+                yield from morphis.peer.protocol.close_channel(local_cid);
 
             return True
 

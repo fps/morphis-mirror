@@ -1,18 +1,18 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import logging
 import multiprocessing as mp
 import os
 import time
 
-import enc
-import mbase32
-import multipart
-import mutil
-import rsakey
+import morphis.enc
+import morphis.mbase32
+import morphis.multipart
+import morphis.mutil
+import morphis.rsakey
 
 log = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 # Copyright (c) 2014-2015  Sam Maloney.
 # License: GPL v2.
 
-import llog
+import morphis.llog
 
 import asyncio
 from datetime import datetime
@@ -15,16 +15,16 @@ from sqlalchemy import func
 
 import base58
 import brute
-import chord
-import consts
-import db
-import mbase32
-import multipart as mp
-import mutil
-import dhgroup14
-import enc
-import sshtype
-import rsakey
+import morphis.chord
+import morphis.consts
+import morphis.db
+import morphis.mbase32
+import morphis.multipart as mp
+import morphis.mutil
+import morphis.dhgroup14
+import morphis.enc
+import morphis.sshtype
+import morphis.rsakey
 
 log = logging.getLogger(__name__)
 

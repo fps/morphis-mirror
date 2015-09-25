@@ -4,18 +4,18 @@
 #
 # This file is based upon parts from paramiko (r85d5e95f9280aa236602b77e9f5bd0aa4d3c8fcd).
 
-import llog
+import morphis.llog
 
 import os
 import asyncio
 import logging
 from hashlib import sha1
 
-from putil import *
-import putil
+from morphis.putil import *
+import morphis.putil
 
-import sshtype
-import packet as mnetpacket
+import morphis.sshtype
+import morphis.packet as mnetpacket
 
 """
 Standard SSH key exchange ("kex" if you wanna sound cool).  Diffie-Hellman of
