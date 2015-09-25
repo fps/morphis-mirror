@@ -8,7 +8,7 @@ setup(
     version='0.9',
     entry_points = { 'console_scripts': [ 'morphis_node = morphis.node:main' ] }, 
     
-    packages = find_packages(),
+    packages = [ 'morphis', 'morphis/maalstroom' ],
 
     package_data = {
         'morphis': [ '*.ico' , 'VERSION', 'maalstroom/templates/main/*', 'maalstroom/templates/dmail/*' , 'maalstroom/resources/style.css', 'maalstroom/resources/images/dmail/*' ]
