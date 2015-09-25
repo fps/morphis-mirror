@@ -13,11 +13,11 @@ from socketserver import ThreadingMixIn
 import threading
 
 import morphis.client_engine as cengine
-import morphis.enc
-import morphis.mbase32
-import morphis.maalstroom.templates as templates
-import maalstroom.dispatcher as dispatcher
-import maalstroom.dmail
+import morphis.enc as enc
+import morphis.mbase32 as mbase32
+from . import templates
+from . import dispatcher
+from . import dmail
 
 log = logging.getLogger(__name__)
 

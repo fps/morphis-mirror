@@ -14,10 +14,10 @@ from hashlib import sha1
 import hmac
 
 import morphis.packet as mnetpacket
-import morphis.kex
+import morphis.kex as kex
 import morphis.kexdhgroup14sha1
-import morphis.rsakey
-import morphis.sshtype
+import morphis.rsakey as rsakey
+import morphis.sshtype as sshtype
 from morphis.sshexception import SshException
 from morphis.mutil import hex_dump
 

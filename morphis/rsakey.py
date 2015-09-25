@@ -19,9 +19,9 @@ from Crypto.Signature import PKCS1_PSS
 import morphis.putil as util
 from morphis.putil import *
 
-import morphis.sshtype
-import morphis.asymkey
-import morphis.enc
+import morphis.sshtype as sshtype
+import morphis.asymkey as asymkey
+import morphis.enc as enc
 from morphis.sshexception import *
 
 log = logging.getLogger(__name__)

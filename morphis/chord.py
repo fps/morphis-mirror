@@ -17,16 +17,16 @@ from datetime import datetime, timedelta
 
 from sqlalchemy import Integer, String, text, func, desc, or_
 
-import morphis.bittrie
+import morphis.bittrie as bittrie
 import morphis.chord_packet as cp
 import morphis.chord_tasks as ct
 import morphis.packet as mnetpacket
-import morphis.rsakey
-import morphis.mn1
-import morphis.mutil
+import morphis.rsakey as rsakey
+import morphis.mn1 as mn1 
+import morphis.mutil as mutil
 import morphis.peer as mnpeer
-import morphis.shell
-import morphis.enc
+import morphis.shell as shell
+import morphis.enc as enc
 from morphis.db import Peer
 from morphis.mutil import hex_dump, log_base2_8bit, hex_string, calc_log_distance
 
@@ -573,7 +573,7 @@ class ChordEngine():
                 dbpeer.connected = False
                 sess.commit()
 
-        yield from morphis.peer.connection_coop_lock.acquire()
+        yield from peer.connection_coop_lock.acquire()
         try:
             yield from self.loop.run_in_executor(None, dbcall)
         finally:

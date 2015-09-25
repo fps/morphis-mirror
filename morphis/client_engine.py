@@ -7,15 +7,15 @@ import time
 
 from sqlalchemy.orm import joinedload
 
-import morphis.base58
-import morphis.chord
+import morphis.base58 as base58
+import morphis.chord as chord
 from morphis.db import DmailAddress
-import morphis.dhgroup14
-import morphis.dmail
-import morphis.mbase32
-import morphis.multipart
-import morphis.rsakey
-import morphis.sshtype
+import morphis.dhgroup14 as dhgroup14
+import morphis.dmail as dmail
+import morphis.mbase32 as mbase32
+import morphis.multipart as multipart
+import morphis.rsakey as rsakey
+import morphis.sshtype as sshtype
 
 log = logging.getLogger(__name__)
 

@@ -12,12 +12,13 @@ from urllib.parse import unquote
 import morphis.base58
 import morphis.chord
 import morphis.enc
-import maalstroom
-import morphis.maalstroom.templates as templates
+
+from . import templates
+
 import morphis.mbase32
 import morphis.multipart
 import morphis.mutil
-import rsakey
+import morphis.rsakey
 
 log = logging.getLogger(__name__)
 
@@ -944,7 +945,7 @@ class MaalstroomDispatcher(object):
         self.write(errmsg)
         self.finish_response()
 
-class KeyCallback(multipart.KeyCallback):
+class KeyCallback(morphis.multipart.KeyCallback):
     def __init__(self):
         self.data_key = None
         self.referred_key = None
@@ -973,7 +974,7 @@ def _send_store_data(data, data_rw, privatekey=None, path=None, version=None,\
 
     data_rw.is_done.set()
 
-class Downloader(multipart.DataCallback):
+class Downloader(morphis.multipart.DataCallback):
     def __init__(self, dispatcher, queue):
         super().__init__()
 

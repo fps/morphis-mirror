@@ -17,8 +17,8 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.pool import Pool
 from sqlalchemy.types import LargeBinary, Boolean, DateTime
 
-import morphis.consts
-import morphis.mutil
+import morphis.consts as consts
+import morphis.mutil as mutil
 
 log = logging.getLogger(__name__)
 
@@ -290,7 +290,7 @@ class Db():
 
         with self.open_session(True) as sess:
             q = sess.query(NodeState)\
-                .filter(NodeState.key == consts.NSK_SCHEMA_VERSION)
+                .filter(NodeState.key == morphis.consts.NSK_SCHEMA_VERSION)
 
             try:
                 r = q.first()

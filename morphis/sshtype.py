@@ -4,8 +4,8 @@
 import struct
 import logging
 
-import morphis.llog
-import morphis.putil
+import morphis.llog as llog
+import morphis.putil as putil
 
 log = logging.getLogger(__name__)
 

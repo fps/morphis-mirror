@@ -23,9 +23,11 @@ import morphis.enc
 import morphis.dmail
 import morphis.mbase32
 import morphis.mutil
-import morphis.maalstroom.templates as templates
-import rsakey
-import sshtype
+
+from . import templates
+
+import morphis.rsakey
+import morphis.sshtype
 
 log = logging.getLogger(__name__)
 

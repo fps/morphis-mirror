@@ -7,10 +7,10 @@ import asyncio
 import logging
 
 import morphis.packet as mnpacket
-import morphis.rsakey
-import morphis.mn1
-import morphis.mutil
-import morphis.enc
+import morphis.rsakey as rsakey
+import morphis.mn1 as mn1
+import morphis.mutil as mutil
+import morphis.enc as enc
 
 log = logging.getLogger(__name__)
 

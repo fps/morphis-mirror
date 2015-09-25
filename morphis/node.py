@@ -11,12 +11,12 @@ import argparse
 from sqlalchemy import update, func
 
 import morphis.packet as mnetpacket
-import morphis.rsakey
-import morphis.mn1
+import morphis.rsakey as rsakey
+import morphis.mn1 as mn1
 from morphis.mutil import hex_dump, hex_string
-import morphis.chord
-import morphis.peer
-import morphis.db
+import morphis.chord as chord
+import morphis.peer as peer
+import morphis.db as db
 
 from pkg_resources import Requirement, resource_string, resource_filename
 
@@ -60,9 +60,9 @@ class Node():
         self.datastore_size = 0 # In bytes.
 
         if dburl:
-            self.db = db.Db(loop, dburl, 'n' + str(instance_id))
+            self.db = morphis.db.Db(loop, dburl, 'n' + str(instance_id))
         else:
-            self.db = db.Db(\
+            self.db = morphis.db.Db(\
                 loop,\
                 "sqlite:///" + data_dir + "/morphis{}.sqlite".format(self.instance_postfix))
         self._db_initialized = False
@@ -235,10 +235,10 @@ class Node():
 
         if os.path.exists(key_filename):
             log.info("Node private key file found, loading.")
-            return rsakey.RsaKey(filename=key_filename)
+            return morphis.rsakey.RsaKey(filename=key_filename)
         else:
             log.info("Node private key file missing, generating.")
-            node_key = rsakey.RsaKey.generate(bits=4096)
+            node_key = morphis.rsakey.RsaKey.generate(bits=4096)
             node_key.write_private_key_file(key_filename)
             return node_key
 
@@ -272,8 +272,8 @@ def main():
     loop.close()
 
     if maalstroom_enabled:
-        import morphis.maalstroom
-        morphis.maalstroom.shutdown()
+        import morphis.maalstroom as maalstroom
+        maalstroom.shutdown()
 
     log.info("Shutdown.")
 
@@ -430,18 +430,18 @@ def __main():
                 node.db.pool_size = db_pool_size
 
             if maalstroom_enabled:
-                import maalstroom
+                import morphis.maalstroom
 
                 if args.dmdmail:
-                    maalstroom.dmail_enabled = False
+                    morphis.maalstroom.dmail_enabled = False
                 if args.dmupload:
-                    maalstroom.upload_enabled = False
+                    morphis.maalstroom.upload_enabled = False
                 if args.proxyurl:
-                    maalstroom.proxy_url = args.proxyurl
+                    morphis.maalstroom.proxy_url = args.proxyurl
 
-                yield from maalstroom.start_maalstroom_server(node)
+                yield from morphis.maalstroom.start_maalstroom_server(node)
 
-            yield from morphis.node.init_db()
+            yield from node.init_db()
 
             if bindaddr:
                 node.bind_address = bindaddr
@@ -464,7 +464,7 @@ def __main():
                 node.chord_engine.connect_peers = addpeer
 
             if maalstroom_enabled:
-                import client_engine as cengine
+                import morphis.client_engine as cengine
 
                 ce = cengine.ClientEngine(node.chord_engine, node.db)
 
@@ -475,9 +475,9 @@ def __main():
                 if args.disableautoscan:
                     ce.auto_scan_enabled = False
 
-                maalstroom.set_client_engine(ce)
+                morphis.maalstroom.set_client_engine(ce)
 
-            yield from morphis.node.start()
+            yield from node.start()
 
         if parallel_launch:
             asyncio.async(_start_node(instance, bindaddr), loop=loop)
