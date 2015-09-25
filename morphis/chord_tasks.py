@@ -2797,7 +2797,7 @@ class ChordTasks(object):
 
         if not node_state:
             node_state = NodeState()
-            node_state.key = norphis.node.NSK_DATASTORE_SIZE
+            node_state.key = morphis.node.NSK_DATASTORE_SIZE
             node_state.value = 0
             sess.add(node_state)
 
